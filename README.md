@@ -1,26 +1,68 @@
-# Dataset Description for Metabolic Network Gap-filling Pipeline
+# Metabolic Network Gap-filling Pipeline
 
-This document provides an overview of the datasets required to run the metabolic network gap-filling pipeline. These datasets are hosted on OSF and are necessary for model reconstruction, reaction pool creation, and final gap-filling.
+This repository provides a streamlined pipeline for **genome-scale metabolic model reconstruction and gap-filling**. It integrates machine learning and network analysis methods to identify and add missing reactions, enhancing model accuracy and biological relevance.
 
-## 📦 Download Location
+## Overview
 
-🔗 DOI: [10.17605/OSF.IO/98KMJ](https://doi.org/10.17605/OSF.IO/98KMJ)
+## External Validation
 
-You will find the following archive files:
+Validated using fermentation product analysis from the **Zimmermann 2021 GenBiol** dataset.
 
-- `data.zip`
-- `universe.zip`
+## System Requirements
 
-Please unzip and place the contents in the specified directories as described below.
+## Installation
 
----
+```bash
+git clone https://github.com/your-username/metabolic-gapfill.git
+cd metabolic-gapfill
+pip install -r requirements.txt
+```
 
-## 📁 `data.zip`
-Unzip to: `/Users/zhaoyanlong/Downloads/MuSHIN/data`
+## Dataset
+
+Datasets available via OSF:
+
+🔗 [Zimmermann 2021 Dataset](https://doi.org/10.17605/OSF.IO/98KMJ)
+
+**Required Files:**
+- `media.tsv`
+- `organisms2.csv`
+- `ferm_prod_exp.csv`
+- Genome-scale models (SBML format)
+- Reaction libraries (BiGG, ModelSEED)
+
+## Usage
+
+Run default pipeline:
+
+```bash
+python main.py
+```
+
+Customized execution:
+
+```bash
+python main.py \
+  --directory Zimmermann2021GenBiol \
+  --pipeline carveme \
+  --method GPR_POOL \
+  --nselect 100 200 \
+  --strategy advanced \
+  --n_jobs -1
+```
+
+### Main Parameters
+
+- `--directory`: Dataset directory (default: `Zimmermann2021GenBiol`)
+- `--pipeline`: `carveme` or `modelseed`
+- `--method`: Reaction selection method (`GPR_POOL`)
+- `--nselect`: Number of reactions to select
+- `--strategy`: `advanced` or `balanced`
+- `--n_jobs`: Number of CPUs (`-1` for all cores)
 
 
----
 
-## 📁 `universe.zip`
-Unzip to: `/Users/zhaoyanlong/Downloads/MuSHIN/external/results/universe`
+## License
+
+MIT License © Your Name or Organization
 
