@@ -1,4 +1,4 @@
-import utils
+import internal.utils.utils as utils
 import torch
 import numpy as np
 import deepchem as dc

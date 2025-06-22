@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-import utils
+import internal.utils.utils as utils
 
 
 # Generate hyperedge features by aggregating node features based on the incidence matrix

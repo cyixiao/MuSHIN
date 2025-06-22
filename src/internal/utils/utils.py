@@ -11,7 +11,7 @@ import numpy as np
 from rdkit import Chem
 import deepchem as dc
 
-from process_data import get_coefficient_and_reactant, create_neg_rxn
+from src.internal.datasets.process_data import get_coefficient_and_reactant, create_neg_rxn
 import torch
 from rdkit import Chem
 
@@ -42,13 +42,13 @@ def restore_stderr(original_stderr, devnull):
 
 # Create negative reactions based on positive reactions and metadata
 def create_neg_rxns(args):
-    with open(f"./data/{args.train}/{args.train}_rxn_name_list.txt", "r") as f:
+    with open(f"./data/internal/{args.train}/{args.train}_rxn_name_list.txt", "r") as f:
         pos_rxn = [i.strip().replace("\n", "") for i in f.readlines()]
     pos_index, pos_metas, pos_nums, rxn_directions = get_coefficient_and_reactant(
         pos_rxn
     )
-    pos_metas_smiles = pd.read_csv(f"./data/{args.train}/{args.train}_meta_count.csv")
-    chebi_meta_filter = pd.read_csv("./data/pool/cleaned_chebi.csv")
+    pos_metas_smiles = pd.read_csv(f"./data/internal/{args.train}/{args.train}_meta_count.csv")
+    chebi_meta_filter = pd.read_csv("./data/internal/pool/cleaned_chebi.csv")
     name_to_smiles = pd.concat(
         [
             chebi_meta_filter.loc[:, ["name", "smiles"]],
@@ -61,7 +61,6 @@ def create_neg_rxns(args):
         pos_rxn,
         pos_metas_smiles,
         chebi_meta_filter,
-        args.balanced,
         args.negative_ratio,
         args.atom_ratio,
     )

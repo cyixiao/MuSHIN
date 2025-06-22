@@ -53,7 +53,7 @@ def combine_meta_rxns(reactions_index, reactions_metas, reactants_nums, reactant
     return rxn
 
 
-def create_neg_rxn(pos_rxn, pos_data_soucre, neg_data_soucre, balanced_atom=False, negative_ratio=1, atom_ratio=0.5):
+def create_neg_rxn(pos_rxn, pos_data_soucre, neg_data_soucre, negative_ratio=1, atom_ratio=0.5):
     # Generates negative reactions by replacing reactants/products with alternatives from a negative dataset.
     reactions_index, reactions_metas, reactants_nums, reactants_direction = get_coefficient_and_reactant(pos_rxn)
     neg_rxn_name_list = []
@@ -68,8 +68,6 @@ def create_neg_rxn(pos_rxn, pos_data_soucre, neg_data_soucre, balanced_atom=Fals
                 count = pos_data_soucre[pos_data_soucre['name'] == meta]['count'].values[0]
                 while dup:
                     found_chebi_metas = neg_data_soucre[neg_data_soucre['count'] == count].sample(1)['name'].values[0]
-                    if not balanced_atom:
-                        break
                     if found_chebi_metas not in reactions_metas[i]:
                         dup = False
                 neg_metas = reactions_metas[i].copy()

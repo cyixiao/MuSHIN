@@ -14,7 +14,7 @@ from BiggDatabase import BiggDatabase as BiggDB
 def parse():
     # Parse command-line arguments to get the GEM name.
     parser = argparse.ArgumentParser()
-    parser.add_argument("--GEM_name", type=str, default="iMM904")
+    parser.add_argument("--dataset", type=str, default="iAF692")
     return parser.parse_args()
 
 
@@ -41,7 +41,7 @@ def get_data(path, sample):
     return model
 
 
-def remove_right_empty(path="../iMM904", output_rxn_file=None, output_meta_file=None):
+def remove_right_empty(path="../iAF692", output_rxn_file=None, output_meta_file=None):
     # Process metabolic models to remove reactions with empty right-hand sides.
     namelist = get_filenames(path)
     rxns_list = []
@@ -102,7 +102,7 @@ def get_chebi_link(metas, output_meta_chebi_file=None):
 
 def get_smiles(all_metas, output_smiles_file=None):
     # Map ChEBI IDs to SMILES strings using a pre-cleaned ChEBI dataset.
-    data = pd.read_csv("./data/pool/cleaned_chebi.csv")
+    data = pd.read_csv("./data/internal/pool/cleaned_chebi.csv")
     smiles = {"name": [], "smiles": [], "name_id": []}
     for i, row in all_metas.iterrows():
         name = row["name"]
@@ -165,11 +165,11 @@ def cout_atom_number(metas, output_meta_count_file=None):
 if __name__ == "__main__":
     # Main script to process GEM data and generate outputs.
     args = parse()
-    gem_name = args.GEM_name
+    gem_name = args.dataset
     print(gem_name)
     rxn_list_no_empty, all_metas = remove_right_empty(
-        path=f"./data/{gem_name}",
-        output_rxn_file=f"./data/{gem_name}/{gem_name}_rxn_no_empty.csv",
+        path=f"./data/internal/{gem_name}",
+        output_rxn_file=f"./data/internal/{gem_name}/{gem_name}_rxn_no_empty.csv",
     )
     all_metas_name = all_metas.loc[:, ["name"]]
     all_metas_remove_dup = all_metas_name.drop_duplicates()
@@ -179,11 +179,11 @@ if __name__ == "__main__":
     meta_smiles = get_smiles_from_db(all_metas_remove_dup)
     meta_smiles_count = cout_atom_number(
         meta_smiles,
-        output_meta_count_file=f"./data/{gem_name}/{gem_name}_meta_count.csv",
+        output_meta_count_file=f"./data/internal/{gem_name}/{gem_name}_meta_count.csv",
     )
 
     rxn_list_no_empty_clean = pd.read_csv(
-        f"./data/{gem_name}/{gem_name}_rxn_no_empty.csv"
+        f"./data/internal/{gem_name}/{gem_name}_rxn_no_empty.csv"
     )["rxn_equation"].tolist()
     pos_rxns_names = change_metaid_to_metaname(rxn_list_no_empty_clean, all_metas)
     rxn_all_name_sample = pd.DataFrame({"rxn_names": pos_rxns_names})
@@ -192,5 +192,5 @@ if __name__ == "__main__":
     pos_rxns = change_arrow(
         pos_rxns_names,
         filter_name=meta_smiles_count["name"].tolist(),
-        save_file=f"./data/{gem_name}/{gem_name}_rxn_name_list.txt",
+        save_file=f"./data/internal/{gem_name}/{gem_name}_rxn_name_list.txt",
     )

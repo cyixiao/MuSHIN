@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch_geometric.nn as hnn
-from attentions import MultiHeadNodeToEdgeAttention, MultiHeadEdgeToNodeAttention
+from src.internal.models.attentions import MultiHeadNodeToEdgeAttention, MultiHeadEdgeToNodeAttention
 
 # MuSHIN: A multi-scale hypergraph neural network with optional attention mechanisms
 class MuSHIN(nn.Module):

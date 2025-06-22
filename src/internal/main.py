@@ -5,7 +5,7 @@ import config
 import pandas as pd
 import numpy as np
 import copy
-from MuSHIN import MuSHIN
+from src.internal.models.MuSHIN import MuSHIN
 from tqdm import tqdm
 from sklearn.metrics import (
     f1_score,
@@ -15,9 +15,9 @@ from sklearn.metrics import (
     average_precision_score,
 )
 
-from utils import set_random_seed, create_neg_rxns, getGipKernel
-from algorithms.smiles2vec import smiles_to_chemberta_vector_gpu
-from algorithms.smiles2fp import smiles_to_fingerprint
+from internal.utils.utils import set_random_seed, create_neg_rxns, getGipKernel
+from src.internal.models.algorithms.smiles2vec import smiles_to_chemberta_vector_gpu
+from src.internal.models.algorithms.smiles2fp import smiles_to_fingerprint
 
 import json
 
@@ -142,7 +142,6 @@ if __name__ == "__main__":
         os.mkdir(args.output)
 
     testing_results = []
-    recover_results = []
 
     # Main loop for multiple iterations
     for i in range(args.iteration):
@@ -155,8 +154,9 @@ if __name__ == "__main__":
             rxn_df[rxn_df != 0] = 1
             neg_df[neg_df != 0] = 1
 
-            train_split = args.train_split if args.recover else 0.6
-            valid_split = train_split + 0.1 if args.recover else 0.8
+            # 固定分割比例
+            train_split = 0.6
+            valid_split = 0.8
 
             train_pos_df, valid_pos_df, test_pos_df = np.split(
                 rxn_df.sample(frac=1, axis=1, random_state=args.seed),
@@ -176,12 +176,10 @@ if __name__ == "__main__":
                 frac=1, axis=1
             )
 
-            if args.recover:
-                test_df = test_pos_df
-            else:
-                test_df = pd.concat([test_pos_df, test_neg_df], axis=1).sample(
-                    frac=1, axis=1
-                )
+            # 永远合并正负样本进行测试
+            test_df = pd.concat([test_pos_df, test_neg_df], axis=1).sample(
+                frac=1, axis=1
+            )
 
         # Prepare data for training and testing
         y_train = (
@@ -232,30 +230,17 @@ if __name__ == "__main__":
         )
 
     # Save results to file
-    if args.recover:
-        recover_dict = {
-            "model": args.train,
-            "algorithm": args.baseline,
-            "remove": args.remove,
-            "recover": recover_results,
-        }
+    result_dict = {
+        "dataset": args.train,
+        "results": testing_results,
+    }
 
-        with open("recover.jsonl", "a") as f:
-            f.write(json.dumps(recover_dict) + "\n")
+    output_dir = os.path.dirname(args.raw_path)
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir, exist_ok=True)
 
-    else:
-        result_dict = {
-            "model": args.train,
-            "algorithm": args.baseline,
-            "results": testing_results,
-        }
+    if not os.path.isfile(args.raw_path):
+        open(args.raw_path, "w").close()
 
-        output_dir = os.path.dirname(args.raw_path)
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir, exist_ok=True)
-
-        if not os.path.isfile(args.raw_path):
-            open(args.raw_path, "w").close()
-
-        with open(args.raw_path, "a") as f:
-            f.write(json.dumps(result_dict) + "\n")
+    with open(args.raw_path, "a") as f:
+        f.write(json.dumps(result_dict) + "\n")
