@@ -26,7 +26,7 @@ cd MuSHIN
 ### [Internal Validation](src/internal/README.md)
 Evaluate MuSHIN’s ability to recover synthetically removed reactions from curated GEMs (e.g., BiGG, AGORA).
 
-### [External Validation](src/external/README.md)
+### [External Validation](src/external/readme.md)
 Validate phenotype prediction on draft GEMs (e.g., fermentation-associated models from Zimmermann et al.).
 
 ---
