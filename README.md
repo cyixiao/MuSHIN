@@ -6,7 +6,7 @@ Genome-scale metabolic models (GEMs) are powerful tools for studying cellular me
 
 ---
 
-![MuSHIN workflow](img/main.pdf)
+![MuSHIN workflow](img/main.png)
 
 ---
 
