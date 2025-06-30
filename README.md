@@ -1,4 +1,4 @@
-# MuSHIN: Multi-Way SMILES-Based Hypergraph Inference Network
+# MuSHIN: A Multi-Way SMILES-Based Hypergraph Inference Network for Metabolic Model Reconstruction
 
 ## Overview
 
