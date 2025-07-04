@@ -10,9 +10,9 @@ This module performs **internal validation** of the MuSHIN model on curated geno
 ---
 
 ## Installation
-
+We recommend installing dependencies from the provided requirements file:
 ```bash
-pip install -r requirements.txt
+pip install -r src/internal/requirements.txt
 ```
 
 ---

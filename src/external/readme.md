@@ -1,9 +1,17 @@
-# Metabolic Network Gap-filling Pipeline
+# External Validation
 
-![Python Version](https://img.shields.io/badge/Python-3.8%2B-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
+```bash
+# Enter the external validation directory
+cd src/external
+```
 
-A comprehensive pipeline for metabolic network reconstruction and gap-filling using machine learning and hypergraph neural network approaches (MuSHIN).
+This module performs external validation of the MuSHIN model on draft genome-scale metabolic models (GEMs), such as those derived from anaerobic bacteria (e.g., Zimmermann et al.). It evaluates MuSHIN’s ability to enhance phenotype prediction accuracy by gap-filling using top-ranked reactions from a universal pool.
+
+## Installation
+We recommend installing dependencies from the provided requirements file:
+```bash
+pip install -r src/external/requirements.txt
+```
 
 ## Overview
 
@@ -13,49 +21,6 @@ The pipeline includes:
 2. **Reaction Score Prediction**: Predicts reaction scores using the MuSHIN neural network.
 3. **Similarity Calculation**: Computes similarity metrics between reactions.
 4. **Metabolic Gap-filling**: Selects reactions intelligently to enhance model accuracy.
-
-## Quick Start
-
-```bash
-git clone https://github.com/YourRepo/metabolic-gapfill.git
-cd metabolic-gapfill
-pip install -r requirements.txt
-python main.py
-```
-
-## Directory Structure
-
-```
-├── data/
-│   ├── metadata/
-│   ├── Models_EGC_removed/
-│   ├── pools/
-│   └── gems/
-├── results/
-│   ├── fba_result/
-│   ├── similarity_scores/
-│   └── universe/
-└── src/
-    ├── pipeline.py
-    ├── gapfill.py
-    ├── predict.py
-    ├── similarity.py
-    ├── utils.py
-    └── main.py
-```
-
-## Installation
-
-### Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### External Files
-
-MuSHIN neural network requires PubChem SMILES data:
-- Place it in: `MuSHIN-main/external/PubChem10M_SMILES_BPE_450k`
 
 ## Usage
 
@@ -101,9 +66,3 @@ results = run_metabolic_gapfill_pipeline(
     strategy="advanced"
 )
 ```
-
-
-## License
-
-This project is licensed under the MIT License.
-
