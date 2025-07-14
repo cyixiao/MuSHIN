@@ -30,3 +30,8 @@ Evaluate MuSHIN’s ability to recover synthetically removed reactions from cura
 Validate phenotype prediction on draft GEMs (e.g., fermentation-associated models from Zimmermann et al.).
 
 ---
+
+## Cite Our Work
+[MuSHIN: A multi-way SMILES-based hypergraph inference network for metabolic model reconstruction](https://www.biorxiv.org/content/10.1101/2025.07.07.663526v1)
+
+---
