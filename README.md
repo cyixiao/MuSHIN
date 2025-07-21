@@ -31,7 +31,17 @@ Validate phenotype prediction on draft GEMs (e.g., fermentation-associated model
 
 ---
 
-## Cite Our Work
-[MuSHIN: A multi-way SMILES-based hypergraph inference network for metabolic model reconstruction](https://www.biorxiv.org/content/10.1101/2025.07.07.663526v1)
+## Citation
 
----
+If you find our method helpful, please cite our paper:
+
+```bibtex
+@article{zhao2025mushin,
+  title={MuSHIN: A multi-way SMILES-based hypergraph inference network for metabolic model reconstruction},
+  author={Zhao, Yanlong and Chen, Yixiao and Yu, Yi and Liu, Xiang and Du, Jiawen and Wen, Jun and Liao, Chen and Sun, Quan and Wang, Ren and Chen, Can},
+  journal={bioRxiv},
+  pages={2025--07},
+  year={2025},
+  publisher={Cold Spring Harbor Laboratory}
+}
+```
