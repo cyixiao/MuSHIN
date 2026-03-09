@@ -1,5 +1,7 @@
 # MuSHIN: A Multi-Way SMILES-Based Hypergraph Inference Network for Metabolic Model Reconstruction
 
+[![Communications Biology](https://img.shields.io/badge/Communications%20Biology-Paper-green)](https://www.nature.com/articles/s42003-026-09761-1)
+
 ## Overview
 
 Genome-scale metabolic models (GEMs) are powerful tools for studying cellular metabolism, but their accuracy is often limited by missing reactions due to incomplete knowledge and annotation gaps. To address this, we introduce **MuSHIN**, a deep hypergraph learning framework that integrates network topology with biochemical semantics to predict and recover missing reactions in GEMs. By embedding molecular structures using transformer-based models and refining features through attention-based message passing, MuSHIN effectively captures complex interactions between metabolites and reactions. This approach enables robust and scalable GEM reconstruction, significantly improving predictive performance across both internal and external validation benchmarks.
@@ -31,17 +33,5 @@ Validate phenotype prediction on draft GEMs (e.g., fermentation-associated model
 
 ---
 
-## Citation
 
-If you find our method helpful, please cite our paper:
-
-```bibtex
-@article{zhao2026multi,
-  title={A multi-way SMILES-based hypergraph inference network for metabolic model reconstruction},
-  author={Zhao, Yanlong and Chen, Yixiao and Yu, Yi and Liu, Xiang and Du, Jiawen and Wen, Jun and Sun, Quan and Wang, Ren and Chen, Can},
-  journal={Communications Biology},
-  year={2026},
-  publisher={Nature Publishing Group}
-}
-```
 
